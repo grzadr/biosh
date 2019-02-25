@@ -1,6 +1,6 @@
 #!/bin/bash
 
-awk '
+mawk '
 BEGIN {
   FS="\t"
   OFS="\t"
@@ -14,8 +14,6 @@ NR == 1 {
     print "Not enough columns"
     exit 1
   }
-
-  print NF -2
 
   shared_columns = NF - 2
   id_column=1
