@@ -101,12 +101,14 @@ BEGIN {RS=""; FS="\n"}
     ref_start "\t" \
     ref_end "\t" \
     ref_strand "\t" \
+    ref_length "\t" \
     ref_seq "\t" \
     query_species "\t" \
     query_chr "\t" \
     query_start "\t" \
     query_end "\t" \
     query_strand "\t" \
+    query_length "\t" \
     query_seq
 
 }
