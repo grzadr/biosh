@@ -1,13 +1,13 @@
 #!/bin/bash
 
-mawk_tsv.sh '
+mawk '
 /^#/{print $0}
-function reduce_ann(field){
+function reduce_ann(field, data){
   split(substr(field, 5), data, ",")
   result=""
   for (i = 1; i in data; i++){
     ele = data[i]
-    if (ele ~ /protein_coding/ && ele ~ /(HIGH|MODERATE|LOW)/)
+    if (ele ~ /protein_coding/ && ele ~ /(\|HIGH\||\|MODERATE\||\|LOW\|)/)
       result = result "," ele
   }
 

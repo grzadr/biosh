@@ -3,13 +3,13 @@
 mawk '
 BEGIN {RS=""; FS="\n"}
 {
-  if ($1 != "a") {
+  if ($1 !~ /^a/) {
     print "Record doesnt start with a"
     print $0
     exit 1
   }
 
-  ref_n=split($2, ref, " ")
+  ref_n=split($(NF-1), ref, " ")
 
   if (ref_n != 7) {
     print "Number of fields is different from 7"
@@ -19,7 +19,7 @@ BEGIN {RS=""; FS="\n"}
 
   if (ref[1] != "s") {
     print "Not s block"
-    print $2
+    print $(NF-1)
     exit 1
   }
 
@@ -44,7 +44,7 @@ BEGIN {RS=""; FS="\n"}
     exit 1
   }
 
-  query_n=split($3, query, " ")
+  query_n=split($NF, query, " ")
 
   if (query_n != 7) {
     print "Number of fields is different from 7"
@@ -54,7 +54,7 @@ BEGIN {RS=""; FS="\n"}
 
   if (query[1] != "s") {
     print "Not s block"
-    print $3
+    print $NF
     exit 1
   }
 
