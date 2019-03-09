@@ -19,6 +19,7 @@ BEGIN {RS=""; FS="\n"}
 
   if (ref[1] != "s") {
     print "Not s block"
+    print $0
     print $(NF-1)
     exit 1
   }
@@ -34,7 +35,7 @@ BEGIN {RS=""; FS="\n"}
   ref_chr_len = ref[6]
 
   if (ref_strand == "+") {
-    ref_start = ref_first - 1
+    ref_start = ref_first + 1
     ref_end = ref_start + ref_length
   } else if (ref_strand == "-") {
     ref_end = ref_chr_len - ref_start
