@@ -1,19 +1,6 @@
 #!/bin/bash
 
 mawk '
-function join(array, sep, start, end, result, i)
-{
-  if (sep == "") sep = " "
-
-  if (start = "") start = 1
-  result = array[start]
-
-  if (end = "") end = length
-
-  for (i = start + 1; i <= end; ++i)
-    result = result sep array[i]
-  return result
-}
 BEGIN {RS=""; FS="\n"}
 {
   if ($1 !~ /^a/) {
@@ -43,27 +30,27 @@ BEGIN {RS=""; FS="\n"}
       exit 1
     }
 
-    species = substr(record[2], 1, index(record[2], ".") - 1)
-    chrom = substr(record[2], index(record[2], ".") + 1)
+    record_species = substr(record[2], 1, index(record[2], ".") - 1)
+    record_chrom = substr(record[2], index(record[2], ".") + 1)
 
-    first = record[3]
-    match_len = record[4]
-    strand = record[5]
-    chrom_len = record[6]
+    record_first = record[3]
+    record_match_len = record[4]
+    record_strand = record[5]
+    record_chrom_len = record[6]
 
-    if (strand == "+") {
-      start = first + 1
-      end = start + match_len
-    } else if (strand == "-") {
-      end = chrom_len - start
-      start = end - match_len + 1
+    if (record_strand == "+") {
+      record_start = record_first + 1
+      record_end = record_start + record_match_len
+    } else if (record_strand == "-") {
+      record_end = record_chrom_len - record_first
+      record_start = record_end - record_match_len + 1
     } else {
       print "Unknown strand format" > "/dev/stderr"
       print $0 > "/dev/stderr"
       exit 1
     }
 
-    result[result_n] = species "\t" chrom "\t" start "\t" end "\t" strand "\t" match_len
+    result[result_n] = record_species "\t" record_chrom "\t" record_start "\t" record_end "\t" record_strand "\t" record_match_len
     result_seqs[result_n] = tolower(record[7])
 
   }
