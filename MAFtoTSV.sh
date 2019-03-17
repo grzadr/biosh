@@ -75,12 +75,14 @@ BEGIN {RS=""; FS="\n"}
   query_seq=""
 
   for (i=1; i in ref_seq_split; ++i){
-    if (ref_seq_split[i] == query_seq_split[i]) {
+    ref_pos = ref_seq_split[i]
+    query_pos = query_seq_split[i]
+    if (ref_pos == query_pos) {
       ref_seq = ref_seq "1"
       query_seq = query_seq "1"
     } else {
-      ref_seq = ref_seq (ref_seq_split[i] == "-" ? "" : "0")
-      query_seq = query_seq (query_seq_split[i] == "-" ? "" : "0")
+      ref_seq = ref_seq (ref_pos == "-" ? "-" : "0")
+      query_seq = query_seq (query_pos == "-" ? "-" : "0")
     }
   }
 
