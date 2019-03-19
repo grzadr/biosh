@@ -40,7 +40,7 @@ BEGIN {RS=""; FS="\n"}
 
     if (record_strand == "+") {
       record_start = record_first + 1
-      record_end = record_start + record_match_len
+      record_end = record_start + record_match_len - 1
     } else if (record_strand == "-") {
       record_end = record_chrom_len - record_first
       record_start = record_end - record_match_len + 1
